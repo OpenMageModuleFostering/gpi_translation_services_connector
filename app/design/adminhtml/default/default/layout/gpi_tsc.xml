@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento backend layout
+ *
+ * @author Magento
+ */
+-->
+<layout>
+    <adminhtml_tsc_index>
+        <reference name="head">
+            <action method="addItem">
+                <type>js</type>
+                <name>gpi_tsc/JSON.js</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>gpi_tsc/EcmaScript5.js</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>gpi_tsc/Crypto.js</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>gpi_tsc/tsc.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/gpiconnector_tsc.css</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="gpi_tsc/adminhtml_tsc" name="tsc" template="gpi/tsc.phtml" />
+        </reference>
+    </adminhtml_tsc_index>
+</layout>

@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/GPI_Translation_Services_Connector",
+    "type": "magento-module",
+    "license": "Open-Software-License-(OSL)",
+    "homepage": "",
+    "description": "GPI's Translation Services Connector simplfies translation workflows for multiple-language Magento websites. ",
+    "authors": [
+    {
+        "name": "Kevin Blake-Thomas",
+        "email": "kBlakeThomas@globalizationpartners.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

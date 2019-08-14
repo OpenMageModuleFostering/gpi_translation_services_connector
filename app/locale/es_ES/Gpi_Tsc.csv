@@ -1,0 +1,44 @@
+exported, Exported {0} documents
+imported, Imported {0} documents
+invalid_authorization, An invalid authorization token was supplied
+invalid_endpoint, An invalid server endpoint was supplied
+InvalidQuoteID, Invalid quote ID
+Additems, Add items
+By, By
+Cancel, Cancel
+CloseProject, Close Project
+Configure, Configure Translation Services Connector
+CreatePackage, Create package
+CreateQuote, Create quote
+Delete, Delete
+DeletePackage, You are about to delete the package [{{=package.Name}}].\\nAre you sure?
+Endpoint, Endpoint URL
+FormComments, Comments
+FormPackageName, Package Name
+FormQuoteName, Quote Name
+FormSourceLanguage, Source Language
+FormTargetLanguages, Target Languages
+From, From:
+<comment>As in "From: English" (language)</comment>
+FullReport, Full Status Report
+ImportTranslations, Import Translations
+Languages, Languages
+LastModified, Last Modified
+ModifyPackage, Modify Package
+NoPackages, There are no packages to list.
+NoProjects, There are no projects to list.
+NoQuotes, There are no quotes to list.
+Package, Package
+PackageName, Package '{{=quote.Name}}'
+Project, Project
+Projects, Projects
+Quote, Quote
+QuoteName, Quote '{{=quote.Name}}'
+Quotes, Quotes
+RequestAQuote, Request a quote
+SaveConfiguration, Save configuration
+Status, Status
+To, To:
+Token, Authorization Token
+TranslationPackages, Translation packages
+UpdatePackage, Update Package

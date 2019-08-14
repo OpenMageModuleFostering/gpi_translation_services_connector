@@ -1,0 +1,220 @@
+<!-- Picket Fences s01e14 -->
+<script type="text/javascript">
+    efx.startup("<?=$this->getUrl('*/*/post')?>");
+    efx.init();
+</script>
+
+<script type="text/html" id="status_tpl">
+{{ statuses.forEach(function(status) { }}
+	<li><b>{{=status.Message}}</b><i><u style="width: {{=status.Percentaje}}%;">{{=status.Percentaje}}%</u></i></li>
+{{ }); }}
+</script>
+
+<script type="text/html" id="add_documents_tpl">
+<div class="grid_12"><h2>{{ if (quickQuote) { }}<?php echo $this->__('QuoteName'); ?> » <?php echo $this->__('Additems'); ?>{{ } else { }}<?php echo $this->__('PackageName'); ?> » <?php echo $this->__('ModifyPackage'); ?> {{ } }}</h2></div>
+<div id="tsc_columns" class="clearfix"></div>
+<div class="buttons">
+	{{ if (quickQuote) { }}
+	<a href="#" onclick="efx.addSelectedDocuments({{=quote.ID}}, true); return false;" class="button orange"><span><?php echo $this->__('RequestAQuote'); ?></span></a>
+	{{ } else { }}
+	<a href="#" onclick="efx.addSelectedDocuments({{=quote.ID}}); return false;" class="button orange"><span><?php echo $this->__('UpdatePackage'); ?></span></a>
+	&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="#" onclick="efx.showScreen('listQuotesScreen'); return false;" class="button khaki"><span><?php echo $this->__('Cancel'); ?></span></a>
+	{{ } }}
+</div>	
+</script>
+
+<script type="text/html" id="createQuote_tpl">
+<div class="grid_12"><h2>{{ if (quickQuote) { }} <?php echo $this->__('CreateQuote'); ?>{{ } else { }} <?php echo $this->__('CreatePackage'); ?>{{ } }}</h2></div>
+<form>
+	<div class="grid_8">
+		<label for="tsc_Name"><abbr title="required">*</abbr> {{ if (quickQuote) { }}<?php echo $this->__('FormQuoteName'); ?>{{ } else { }}<?php echo $this->__('FormPackageName'); ?>{{ } }}</label>
+		<input id="tsc_Name" value="" type="text" tabindex="1" />
+	</div>
+	<div class="grid_4">
+		<label for="tsc_SourceLang"><?php echo $this->__('FormSourceLanguage'); ?></label>
+		{{ if (sourceLanguages.length < 2) { }}
+		<input disabled="disabled" value="{{=sourceLanguages[0].Name}}" type="text" />
+		<input id="tsc_SourceLang" value="{{=sourceLanguages[0].ID}}" type="hidden" />
+		{{ } else { }}
+		<select id="tsc_SourceLang" tabindex="3">
+			{{ sourceLanguages.forEach(function(lang) { }}
+			<option value="{{=lang.ID}}">{{=lang.Name}}</option>
+			{{ }); }}
+		</select>
+		{{ } }}
+	</div>
+	<div class="grid_8">
+		<label for="tsc_Notes"><?php echo $this->__('FormComments'); ?></label>
+		<textarea rows="9" cols="30" id="tsc_Notes" tabindex="2"></textarea>
+	</div>
+	<div class="grid_4">
+		<label><?php echo $this->__('FormTargetLanguages'); ?></label>
+		{{ if (targetLanguages.length < 2) { }}
+		<input disabled="disabled" value="{{=targetLanguages[0].Name}}" type="text" />
+		<input id="tsc_TargetLangs" value="{{=targetLanguages[0].ID}}" type="hidden" />
+		{{ } else { }}
+		<div class="tsc_selectMultiple">
+			{{ targetLanguages.forEach(function(lang, index) { }}
+			<label><input {{ if (index == 0) { }}id="tsc_TargetLangs"{{ } }} type="checkbox" name="tsc_LangNames" value="{{=lang.ID}}" tabindex="{{=(index+4)}}"/> {{=lang.Name}}</label>
+			{{ }); }}
+		</div>
+		{{ } }}
+	</div>
+	<div class="buttons">
+		{{ if (quickQuote) { }}
+			<a href="#" onclick="efx.showScreen('createQuote', true); return false;" class="button orange"><span><?php echo $this->__('CreateQuote'); ?></span></a>
+		{{ } else { }}
+			<a href="#" onclick="efx.showScreen('createQuote'); return false;" class="button orange"><span><?php echo $this->__('CreatePackage'); ?></span></a>
+		{{ } }}
+		
+		&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="efx.showScreen('listQuotesScreen'); return false;" class="button khaki"><span><?php echo $this->__('Cancel'); ?></span></a>
+	</div>
+</form>
+</script>
+
+<script type="text/html" id="main_tpl">
+<div class="grid_12">
+<h2><?php echo $this->__('TranslationPackages'); ?> <a href="#" onclick="efx.showScreen('createQuoteScreen'); return false;" class="button orange"><span><?php echo $this->__('CreatePackage'); ?></span></a></h2>
+{{ if (!packages.length) { }}
+<p class="message info"><?php echo $this->__('NoPackages'); ?></p>
+{{ } else { }}
+	<table cellpadding="0" cellspacing="0" class="dataTable">
+	<col align="left" />
+	<col width="128" align="right" />
+	<col width="128" align="left" />
+	<col width="15%" align="left" />
+	<thead>
+		<tr>
+			<th><?php echo $this->__('Package'); ?></th>
+			<th><?php echo $this->__('LastModified'); ?></th>
+			<th><?php echo $this->__('By'); ?></th>
+			<th><?php echo $this->__('Languages'); ?></th>
+		</tr>
+	</thead>
+	<tbody>
+		{{ packages.forEach(function(package) { }}
+		<tr>
+			<td><span>{{=package.Name}}
+			<b class="actions"><i>
+			<a href="#" class="link-delete" onclick='return efx.doConfirm("<?php echo $this->__('DeletePackage'); ?>", efx.deletePackage, {{=package.ID}})'><?php echo $this->__('Delete'); ?></a>
+			{{ if (package.PackageCount > 0) { }}
+			<a href="#" class="link-request" onclick="efx.requestAQuote({{=package.ID}}); return false;"><?php echo $this->__('RequestAQuote'); ?></a>
+			{{ } }}
+			<a href="#" class="link-add" onclick="efx.showScreen('addDocuments', {{=package.ID}}); return false;"><?php echo $this->__('ModifyPackage'); ?></a>
+			</i></b></span></td>
+			<td>{{=package.LastModifiedOn}} at {{=package.LastModifiedOn}}</td>
+			<td>{{=package.LastModifiedBy || ""}}</td>
+			<td>From: {{=package.SourceLanguage}}<br/>To: {{=package.TargetLanguages.join(", ")}}</td>
+		</tr>
+		{{ }); }}
+	</tbody>
+</table>
+{{ } }}
+
+<h2><?php echo $this->__('Quotes'); ?> <a href="#" onclick="efx.showScreen('createQuoteScreen', true); return false;" class="button orange"><span><?php echo $this->__('CreateQuote'); ?></span></a></h2>
+{{ if (!quotes.length) { }}
+<p class="message info"><?php echo $this->__('NoQuotes'); ?></p>
+{{ } else { }}
+	<table cellpadding="0" cellspacing="0" class="dataTable">
+	<col align="left" />
+	<col width="128" align="center" />
+	<col width="15%" align="left" />
+	<thead>
+		<tr>
+			<th><?php echo $this->__('Quote'); ?></th>
+			<th><?php echo $this->__('Status'); ?></th>
+			<th><?php echo $this->__('Languages'); ?></th>
+		</tr>
+	</thead>
+	<tbody>
+		{{ quotes.forEach(function(quote) { }}
+		<tr>
+			<td><span>{{=quote.Name}}
+			{{ if (quote.Status !== "QuoteOpen" && !String.isNullOrEmpty(quote.PortalLink)) { }}
+			<b class="actions"><i>
+				<a href="{{=quote.PortalLink}}" class="link-view" target="_blank"><?php echo $this->__('FullReport'); ?></a>
+				{{ } }}
+			</i></b></span>
+			</td>
+			<td>{{=quote.HumanStatus}}</td>
+			<td><?php echo $this->__('From'); ?> {{=quote.SourceLanguage}}<br/><?php echo $this->__('To'); ?> {{=quote.TargetLanguages.join(", ")}}</td>
+		</tr>
+		{{ }); }}
+	</tbody>
+</table>
+{{ } }}
+
+<h2><?php echo $this->__('Projects'); ?></h2>
+{{ if (!projects.length) { }}
+<p class="message info"><?php echo $this->__('NoProjects'); ?></p>
+{{ } else { }}
+	<table cellpadding="0" cellspacing="0" class="dataTable">
+	<col align="left" />
+	<col width="128" align="center" />
+	<col width="15%" align="left" />
+	<thead>
+		<tr>
+			<th><?php echo $this->__('Project'); ?></th>
+			<th><?php echo $this->__('Status'); ?></th>
+			<th><?php echo $this->__('Languages'); ?></th>
+		</tr>
+	</thead>
+	<tbody>
+		{{ projects.forEach(function(project) { }}
+		<tr>
+			<td><span>{{=project.Name}}
+			<b class="actions"><i>
+				{{ if (project.Status == "ProjectCompleted") { }}
+				<a href="#" class="link-import" onclick="efx.importProject({{=project.ID}}); return false;"><?php echo $this->__('ImportTranslations'); ?></a>
+				<a href="#" class="link-close" onclick="efx.closeProject({{=project.ID}}); return false;"><?php echo $this->__('CloseProject'); ?></a>
+				{{ } }}
+
+				{{ if (!String.isNullOrEmpty(project.PortalLink)) { }}
+				<a href="{{=project.PortalLink}}" class="link-view" target="_blank"><?php echo $this->__('FullReport'); ?></a>
+				{{ } }}
+			</i></b></span></td>
+			<td>{{=project.HumanStatus}}</td>
+			<td><?php echo $this->__('From'); ?> {{=project.SourceLanguage}}<br/><?php echo $this->__('To'); ?> {{=project.TargetLanguages.join(", ")}}</td>
+		</tr>
+		{{ }); }}
+	</tbody>
+</table>
+{{ } }}
+</div>
+</script>
+
+<script type="text/html" id="config_tpl">
+<div class="grid_12"><h2><?php echo $this->__('Configure'); ?></h2></div>
+<form style="max-width: 600px; margin: 0 auto;">
+	<div>
+		<label for="tsc_tokenID"><abbr title="required">*</abbr> <?php echo $this->__('Token'); ?></label>
+		<textarea rows="4" cols="30" id="tsc_tokenID">{{=configuration.AuthorizationToken}}</textarea>
+	</div>
+	<div>
+		<label for="tsc_Endpoint"><abbr title="required">*</abbr> <?php echo $this->__('Endpoint'); ?></label>
+		<input id="tsc_Endpoint" value="{{=configuration.TscServerEndPoint}}" type="text" />
+	</div>
+	<div class="buttons">
+		<a href="#" onclick="efx.saveConfiguration(); return false;" class="button orange"><span><?php echo $this->__('SaveConfiguration'); ?></span></a>
+		{{if (fromConfig) {}}
+		&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="efx.showScreen('listQuotesScreen'); return false;" class="button khaki"><span><?php echo $this->__('Cancel'); ?></span></a>
+		{{ } }}
+	</div>
+</form>
+</script>
+<div id="tsc_wrapper">
+    <div id="tsc_header">
+		<a href="http://www.globalizationpartners.com/" id="tsc_logo">Globalization Partners International</a>
+		<a href="#" id="tsc_settings" onclick="efx.showScreen('showConfigurationScreen', true); return false;">Settings</a>
+	</div>
+    <div id="tsc_maincontent">
+		<div id="tsc_messages" class="grid_12"></div>
+		<div id="tsc_content" class="clearfix"></div>
+		<p id="gpiWidgetFooter"><a href="http://www.globalizationpartners.com/" target="_blank">&copy; 2001-2015 Globalization Partners International. All rights reserved. Trademarks are property of their respective owners.</a></p>
+		<p id="tsc_working"> </p>
+		<ul id="tsc_status"></ul>
+	</div>
+</div>

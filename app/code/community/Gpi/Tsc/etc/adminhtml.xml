@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento admin config
+ *
+ * @author Magento
+ */
+-->
+<config>
+    <menu>
+         <tsc translate="title" module="gpi_tsc">
+            <title>GPI</title>
+            <sort_order>66</sort_order>
+            <children>
+                <manage translate="title" module="gpi_tsc">
+                    <title>Translation Services Connector</title>
+                    <action>adminhtml/tsc</action><!-- Changed from ITscClientPlugin-->
+                    <sort_order>51</sort_order>
+                </manage>
+            </children>
+         </tsc>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <tsc translate="title" module="gpi_tsc">
+                        <title>GPI</title>
+                        <sort_order>66</sort_order>
+                        <children>
+                            <manage>
+                                <children>
+                                    <title>Manage TSC</title>
+                                    <sort_order>0</sort_order>
+                                </children>
+                            </manage>
+                        </children>
+                    </tsc>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <tsc translate="title" module="gpi_tsc">
+                                        <title>News Package</title>
+                                    </tsc>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

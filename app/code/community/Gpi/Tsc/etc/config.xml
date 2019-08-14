@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Module configuration
+ *
+ * @author Magento
+ */
+-->
+<config>
+    <modules>
+        <Gpi_Tsc>
+            <version>1.0.0.1</version>
+        </Gpi_Tsc>
+    </modules>
+    <global>
+        <models>
+            <gpi_tsc>
+                <class>Gpi_Tsc_Model</class>
+                <resourceModel>tsc_resource</resourceModel>
+            </gpi_tsc>
+            <tsc_resource>
+                <class>Gpi_Tsc_Model_Resource</class>
+                <entities>
+                    <!--
+                    <tsc>
+                        <table>tsc</table>
+                    </tsc>
+                     -->
+                    <backgroundjobs>
+                        <table>gpi_backgroundjobs</table>
+                    </backgroundjobs>
+                    <configurations>
+                        <table>gpi_configurations</table>
+                    </configurations>
+                   <quotes>
+                        <table>gpi_quotes</table>
+                    </quotes>
+                </entities>
+            </tsc_resource>
+        </models>
+        <helpers>
+            <gpi_tsc>
+                <class>Gpi_Tsc_Helper</class>
+            </gpi_tsc>
+        </helpers>
+        <blocks>
+            <gpi_tsc>
+                <class>Gpi_Tsc_Block</class>
+            </gpi_tsc>
+        </blocks>
+        <resources>
+            <gpi_tsc_setup>
+                <setup>
+                    <module>Gpi_Tsc</module>
+                    <class>Mage_Core_Model_Resource_Setup</class>
+                </setup>
+            </gpi_tsc_setup>
+        </resources>
+        
+        <!--<events>
+            <before_tsc_items_display>
+                <observers>
+                    <gpi_tsc>
+                        <class>gpi_tsc/observer</class>
+                        <method>beforeNewsDisplayed</method>
+                    </gpi_tsc>
+                </observers>
+            </before_tsc_items_display>
+        </events>-->
+    </global>
+	<crontab>
+		<jobs>
+            <gpi_tsc>
+                <schedule>
+					<cron_expr>*/1 * * * *</cron_expr>
+				</schedule>
+                <run>
+					<model>gpi_tsc/cron::run</model>
+				</run>
+            </gpi_tsc>
+        </jobs>
+	</crontab>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Gpi_Tsc before="Mage_Adminhtml">Gpi_Tsc_Adminhtml</Gpi_Tsc>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <gpi_tsc>
+                    <file>gpi_tsc.xml</file>
+                </gpi_tsc>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Gpi_Tsc>
+                    <files>
+                        <default>Gpi_Tsc.csv</default>
+                    </files>
+                </Gpi_Tsc>
+            </modules>
+        </translate>
+    </adminhtml>
+</config>
