@@ -1,7 +1,7 @@
 {
-    "name": "OpenMageModuleFostering\/GPI_Translation_Services_Connector",
+    "name": "openmage-module-fostering\/gpi_translation_services_connector",
     "type": "magento-module",
-    "license": "Open-Software-License-(OSL)",
+    "license": "OSL-3.0",
     "homepage": "",
     "description": "GPI's Translation Services Connector simplfies translation workflows for multiple-language Magento websites. ",
     "authors": [
